@@ -1,0 +1,2 @@
+djorm-ext-core==0.4.1
+djorm-ext-expressions==0.4.3
