@@ -53,7 +53,8 @@ MyModel.objects.filter(....).annotate_functions(
         LlToEarth(['latitude', 'longitude']))
 ```
 
-### Optimizing perfomance with indexes ###
+Optimizing perfomance with indexes
+---------------
 
 PostgreSQL allow to use GiST indexes with functions results, a good perfomance improvement is to store ll_to_earth results in
 an index, ll_to_earth() calculates the position of a point on the surface of the earth (assuming earth is 
