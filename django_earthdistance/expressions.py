@@ -6,7 +6,12 @@ from functions import LlToEarth, EarthBox
 
 
 class EarthDistanceExpression(SqlExpression):
+    """
+        Builds the final sql needed to make the request using
+        the SqlFunctions and operators
+    """
     sql_template = "%(field)s %(operator)s %(value)s"
+
     def __init__(self, field_or_func, operator, value=None, **kwargs):
         self.operator = operator
         self.extra = kwargs
@@ -50,11 +55,10 @@ class DistanceExpression(object):
             Builds a query using earth_box and ll_to_earth
 
             SELECT * FROM "venues_venue" WHERE
-                earth_box(ll_to_earth(12.23,15.25),10000) @> ll_to_earth(lat,lon)
+                earth_box(
+                    ll_to_earth(12.23,15.25),10000) @> ll_to_earth(lat,lon)
         """
         return EarthDistanceExpression(
-            EarthBox(LlToEarth(points), distance), '@>', LlToEarth(self.fields))
-
-
-
-
+            EarthBox(LlToEarth(points), distance),
+            '@>',
+            LlToEarth(self.fields))
