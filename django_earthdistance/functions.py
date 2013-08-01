@@ -6,8 +6,7 @@ from utils import is_sequence, _setup_joins_for_fields
 
 class LlToEarth(SqlFunction):
     """
-        This function calculates a point position on the earth surface
-        using two floats
+        This function builds a point in the earth surface using two floats
     """
     sql_function = u'll_to_earth'
     sql_template = u'%(function)s(%(x)s,%(y)s)'
@@ -25,7 +24,7 @@ class LlToEarth(SqlFunction):
             Returns final sql expression:
                 ll_to_earth(column1, column2)
 
-            JOIN is supported (venue__location_lat, venue__location_lon)
+            JOIN is supported
         """
         try:
             # columns with '__' are joins
@@ -45,15 +44,6 @@ class LlToEarth(SqlFunction):
 
 
 class CubeDistance(SqlFunction):
-    """
-        Cube distance calculates the distance in metters between two points.
-
-        :param points_function: SqlFunction that calculates points positions,
-            e. g.: LlToEarth(0.548, 1.254)
-        :param fields_function: SqlFunction that will calculates the position
-            and name of columns with latitude and longitude
-            e. g.: LlToEarth('lat', 'lon')
-    """
     sql_function = 'cube_distance'
     sql_template = '%(function)s(%(points)s,%(fields)s)'
 
@@ -66,8 +56,7 @@ class CubeDistance(SqlFunction):
     def as_sql(self, qn, queryset):
         """
             Returns final sql expression:
-                cube_distance(
-                    ll_to_earth(0.548, 1.254), ll_to_earth(column1, column2))
+                earth_box(ll_to_earth(column1, column2), distance)
         """
         final_args = []
         final_args.extend(self.args,)
@@ -84,12 +73,7 @@ class CubeDistance(SqlFunction):
 
 class EarthBox(SqlFunction):
     """
-        Build a box around one point and distance
-        Allow to calculate points inside a distance
-
-        :param inside_function: SqlFunction that calculates central point
-            position, e. g.: LlToEarth(0.548, 1.254)
-        :param distance: radious in meters where objects will be searched
+        This function build a box around one point using distance
     """
     sql_function = 'earth_box'
     sql_template = '%(function)s(%(inside)s,%(distance)s)'

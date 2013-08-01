@@ -10,6 +10,7 @@ setup(
         'djorm-ext-hstore==0.4.3',
         'djorm-ext-expressions==0.4.3'],
     url='https://github.com/jneight/django-earthdistance',
+    description='Add support for earthdistance PostgreSQL extension to Django',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',
@@ -22,6 +23,6 @@ setup(
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
     ],
-    author='Javier Cordero',
+    author='Javier Cordero Martinez',
     author_email='jcorderomartinez@gmail.com'
 )
