@@ -1,7 +1,8 @@
 # coding=utf-8
 
 from djorm_expressions.base import SqlFunction
-from utils import is_sequence, _setup_joins_for_fields
+from djorm_expressions.utils import _setup_joins_for_fields
+from utils import is_sequence
 
 
 class LlToEarth(SqlFunction):
