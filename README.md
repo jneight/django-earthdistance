@@ -1,14 +1,14 @@
 django-earthdistance
 ====================
 
-Using PostgreSQL's EarthDistance extension with django and django-ext-*
+Using PostgreSQL's EarthDistance extension with django and djorm-ext-*
 
 Earthdistance allows to do fast geolocalized queries without using PostGIS
 
 Usage
 ---------------
 
-Cube and EarthDistance extensions must be enabled in postgreSQL BD, so logs in
+Cube and EarthDistance extensions must be enabled in postgreSQL BD, so log in
 database using pgsql and install extensions:
 
 ```
@@ -56,8 +56,8 @@ MyModel.objects.filter(....).annotate_functions(
 Optimizing perfomance with indexes
 ---------------
 
-PostgreSQL allow to use GiST indexes with functions results, a good perfomance improvement is to store ll_to_earth results in
-an index, ll_to_earth() calculates the position of a point on the surface of the earth (assuming earth is 
+PostgreSQL allow to use GiST indexes with functions results, a good perfomance improvement is to store `ll_to_earth` results in
+an index, `ll_to_earth` is a function that calculates the position of a point on the surface of the earth (assuming earth is 
 perfectly spherical)
 
 
@@ -66,7 +66,7 @@ perfectly spherical)
 CREATE INDEX mymodel_location ON app_mymodel USING gist (ll_to_earth(latitude, longitude));
 ```
 
-Also, using south is preferred, just add this migration to migrations/ folder and edit it to your needs
+Also, using south is preferred, just add this migration to migrations/ folder and edit it to your needs, index will be created
 ```python
 class Migration(SchemaMigration):
 
