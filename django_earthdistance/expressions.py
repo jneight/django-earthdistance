@@ -2,7 +2,7 @@
 
 from djorm_expressions.base import SqlExpression, SqlNode
 
-from functions import LlToEarth, EarthBox
+from .functions import LlToEarth, EarthBox
 
 
 class EarthDistanceExpression(SqlExpression):
