@@ -1,6 +1,6 @@
 *.log
 *.pot
 *.pyc
-local_settings.py
-dist/*
-django-earthdistance.egg-info/*
+build/
+dist/
+django_earthdistance.egg-info/

@@ -1,5 +1,2 @@
-include LICENSE
-include MANIFEST.in
-include README
-include requirements.txt
+include LICENSE AUTHORS.rst README.rst
 recursive-include django-earthdistance/ *

@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 import sys
-from django.conf import settings
 
+from django.conf import settings
 
 settings.configure(
     DEBUG=True,
     DATABASES={
-        'default': {
+        'default':{
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'test',
             'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'OPTIONS': {'autocommit': True},
-        }
+            'PASSWORD': 'postgres', }
     },
     INSTALLED_APPS=(
         'django_earthdistance',

@@ -1,2 +1,0 @@
-djorm-ext-core>=0.4.3
-djorm-ext-expressions>=0.5

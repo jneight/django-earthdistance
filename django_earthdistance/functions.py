@@ -46,6 +46,12 @@ class LlToEarth(SqlFunction):
 
 
 class CubeDistance(SqlFunction):
+    """
+        This function calculates the distance between two points in meters.
+
+        The distance is calculated using a spherical earth. Some error
+        will be expected near poles or equator
+    """
     sql_function = 'cube_distance'
     sql_template = '%(function)s(%(points)s,%(fields)s)'
 
@@ -58,7 +64,10 @@ class CubeDistance(SqlFunction):
     def as_sql(self, qn, queryset):
         """
             Returns final sql expression:
-                earth_box(ll_to_earth(column1, column2), distance)
+                cube_distance(
+                    ll_to_earth(39.49087,-1.15071),
+                    ll_to_earth(
+                        "tests_testmodel"."lat","tests_testmodel"."lon"))
         """
         final_args = []
         final_args.extend(self.args,)
@@ -66,6 +75,7 @@ class CubeDistance(SqlFunction):
         final_args.extend(_args)
         fields_sql, _args = self.fields_function.as_sql(qn, queryset)
         final_args.extend(_args)
+
         return self.sql_template % {
             'function': self.sql_function,
             'points': points_sql,

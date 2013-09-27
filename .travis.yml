@@ -1,0 +1,19 @@
+language: python
+python:
+    - '2.7'
+    - '3.3'
+env:
+    - DJANGO_VERSION=1.5.4 
+install:
+    - pip install . --use-mirrors
+    - pip install django==$DJANGO_VERSION
+    - pip install psycopg2
+    - python setup.py -q install
+script:
+    - python runtests.py
+services:
+    - postgresql
+before_script:
+    - psql -c 'create database test;' -U postgres
+    - psql -d test -c 'create extension cube;' -U postgres
+    - psql -d test -c 'create extension earthdistance;' -U postgres
