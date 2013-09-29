@@ -71,8 +71,10 @@ class CubeDistance(SqlFunction):
         """
         final_args = []
         final_args.extend(self.args,)
+        # get SQL for points
         points_sql, _args = self.points_function.as_sql(qn, queryset)
         final_args.extend(_args)
+        # get SQL for fields
         fields_sql, _args = self.fields_function.as_sql(qn, queryset)
         final_args.extend(_args)
 

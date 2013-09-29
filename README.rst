@@ -5,6 +5,15 @@ Using PostgreSQL's EarthDistance extension with django and djorm-ext-*
 
 Earthdistance allows to do fast geolocalized queries without using PostGIS
 
+.. image:: https://pypip.in/v/django-earthdistance/badge.png
+        :target: https://crate.io/packages/PYPI_PKG_NAME
+
+.. image:: https://pypip.in/d/django-earthdistance/badge.png
+        :target: https://crate.io/packages/PYPI_PKG_NAME
+
+**Tested with python 2.7 and 3.3**
+
+
 Usage
 ---------------
 
@@ -12,6 +21,7 @@ Cube and EarthDistance extensions must be enabled in postgreSQL BD, so log in
 database using pgsql and install extensions:
 
 .. code:: sql
+
     => create extension cube;
     => create extension earthdistance;
 
@@ -69,6 +79,7 @@ perfectly spherical)
 
 
 .. code:: sql
+   
     -- Example MyModel table is app_mymodel and points columns are latitude and longitude
     CREATE INDEX mymodel_location ON app_mymodel USING gist (ll_to_earth(latitude, longitude));
 
