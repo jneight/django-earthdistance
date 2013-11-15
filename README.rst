@@ -6,10 +6,10 @@ Using PostgreSQL's EarthDistance extension with django and djorm-ext-*
 Earthdistance allows to do fast geolocalized queries without using PostGIS
 
 .. image:: https://pypip.in/v/django-earthdistance/badge.png
-        :target: https://crate.io/packages/PYPI_PKG_NAME
+        :target: https://crate.io/packages/django-earthdistance
 
 .. image:: https://pypip.in/d/django-earthdistance/badge.png
-        :target: https://crate.io/packages/PYPI_PKG_NAME
+        :target: https://crate.io/packages/django-earthdistance
 
 **Tested with python 2.7 and 3.3**
 
