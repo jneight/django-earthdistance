@@ -65,8 +65,8 @@ Annotate each row returned by a query with distance between two points
 
     MyModel.objects.filter(....).annotate_functions(
         distance=CubeDistance(
-            LlToEarth([0.2546, -38.25]]),
-            LlToEarth(['latitude', 'longitude']))
+            LlToEarth([0.2546, -38.25]),
+            LlToEarth(['latitude', 'longitude'])))
 
 
 
