@@ -112,3 +112,31 @@ class EarthBox(SqlFunction):
             'inside': inside_sql,
             'distance': self.distance
         }, []
+
+
+class EarthDistance(SqlFunction):
+    """
+        This function returns the great circle distance between two points on the surface of the
+        earth.
+    """
+    sql_function = 'earth_distance'
+    sql_template = '%(function)s(%(earth1)s,%(earth2)s)'
+
+    def __init__(self, earth1_function, earth2_function, *args, **kwargs):
+        self.earth1_function = earth1_function
+        self.earth2_function = earth2_function
+        self.args = args
+        self.extern_params = kwargs
+
+    def as_sql(self, qn, queryset):
+        """
+            Returns final sql expression:
+                earth_distance(ll_to_earth(column1, column2), ll_to_earth(lat, lng))
+        """
+        earth1_sql, _args = self.earth1_function.as_sql(qn, queryset)
+        earth2_sql, _args = self.earth2_function.as_sql(qn, queryset)
+        return self.sql_template % {
+            'function': self.sql_function,
+            'earth1': earth1_sql,
+            'earth2': earth2_sql
+        }, []
