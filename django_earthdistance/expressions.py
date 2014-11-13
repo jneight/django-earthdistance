@@ -2,7 +2,7 @@
 
 from djorm_expressions.base import SqlExpression, SqlNode
 
-from .functions import LlToEarth, EarthBox
+from .functions import LlToEarth, EarthBox, EarthDistance
 
 
 class EarthDistanceExpression(SqlExpression):
@@ -19,8 +19,10 @@ class EarthDistanceExpression(SqlExpression):
 
         if isinstance(value, SqlNode):
             self.value_function = value
+            self.value = None
         else:
             self.value_function = None
+            self.value = value
 
     def as_sql(self, qn, queryset):
         args = []
@@ -31,6 +33,8 @@ class EarthDistanceExpression(SqlExpression):
             value_sql, _args = self.value_function.as_sql(qn, queryset)
             if _args:
                 args.append(_args)
+        else:
+            value_sql = self.value
 
         template_result = self.sql_template % {
             'field': function_sql,
@@ -57,6 +61,18 @@ class DistanceExpression(object):
             EarthBox(LlToEarth(points), distance), '@>', LlToEarth(self.fields))
 
 
+class ExactDistanceExpression(object):
+    def __init__(self, fields):
+        self.fields = fields
 
+    def in_distance(self, distance, points):
+        """
+            Builds a query using earth_distance and ll_to_earth
+
+            SELECT * FROM "venues_venue" WHERE
+                earth_distance(ll_to_earth(12.23,15.25),ll_to_eart(lat,lon)) <= 10000
+        """
+        return EarthDistanceExpression(
+            EarthDistance(LlToEarth(points), LlToEarth(self.fields)), '<=', distance)
 
 
