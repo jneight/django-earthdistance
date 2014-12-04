@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-earthdistance',
-    version='0.5',
+    version='0.6',
     install_requires=[
         'djorm-ext-core>=0.7',
         'djorm-ext-expressions>=0.5'],
