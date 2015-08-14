@@ -4,10 +4,9 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-earthdistance',
-    version='0.6',
+    version='1.0a',
     install_requires=[
-        'djorm-ext-core>=0.7',
-        'djorm-ext-expressions>=0.5'],
+        'django>=1.8']
     url='https://github.com/jneight/django-earthdistance',
     description='Add support for PostgreSQL earthdistance extension to Django',
     long_description=open("README.rst").read(),

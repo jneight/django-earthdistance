@@ -3,8 +3,9 @@
 from django.test import TestCase
 
 from django_earthdistance.expressions import DistanceExpression
-from django_earthdistance.functions import CubeDistance, LlToEarth
+#from django_earthdistance.functions import CubeDistance, LlToEarth
 
+from django_earthdistance.models import CubeDistance, LlToEarth
 from .models import TestModel
 
 
@@ -29,12 +30,11 @@ class EarthdistanceTest(TestCase):
             all(o.pk in [self.obj_2.pk, self.obj_3.pk] for o in objects))
 
     def test_annotate(self):
-        objects = TestModel.objects.where(
-            DistanceExpression(['lat', 'lon']).in_distance(
-                10000, (float(39.49087), float(-1.15071)))).annotate_functions(
-                distance=CubeDistance(
-                    LlToEarth([float(39.49087), float(-1.15071)]),
-                    LlToEarth(['lat', 'lon'])))
+        objects = TestModel.objects.all().annotate(
+            distance=CubeDistance([
+                LlToEarth(['lat', 'lon']),
+                LlToEarth([float(39.49087), float(-1.15071)])
+            ]))
         self.assertEqual(objects.count(), 1)
         self.assertEqual(int(objects[0].distance), 8082)
 

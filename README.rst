@@ -1,7 +1,7 @@
 django-earthdistance
 =====================
 
-Using PostgreSQL's EarthDistance extension with django and djorm-ext-*
+Using PostgreSQL's EarthDistance extension for django >= 1.8 (for older versions see *with_djorm_expressions* branch)*
 
 Earthdistance allows to do fast geolocalized queries without using PostGIS
 
@@ -26,11 +26,8 @@ database using pgsql and install extensions:
     => create extension earthdistance;
 
 
-Extension is built using `djorm-ext-core <https://github.com/niwibe/djorm-ext-core>`_
-and `djorm-ext-expressions <https://github.com/niwibe/djorm-ext-expressions>`_ packages.
 
-
-Filter by rows inside a circle of distance r
+(NOT UPDATED TO DJANGO 1.8 YET) Filter by rows inside a circle of distance r
 ----------------------------------------------
 
 .. code:: python
@@ -59,11 +56,9 @@ Annotate each row returned by a query with distance between two points
 
 .. code:: python
 
-    # annotate_functions can be used with any manager inherited from ExpressionManager
-    # see https://github.com/niwibe/djorm-ext-expressions and 
-    # http://www.niwi.be/2012/10/07/sqlexpressions-and-functions-with-django/
+    from django_earthdistance.models import CubeDistance, LlToEarth
 
-    MyModel.objects.filter(....).annotate_functions(
+    MyModel.objects.filter(....).annotate(
         distance=CubeDistance(
             LlToEarth([0.2546, -38.25]),
             LlToEarth(['latitude', 'longitude'])))
