@@ -27,28 +27,26 @@ database using pgsql and install extensions:
 
 
 
-(NOT UPDATED TO DJANGO 1.8 YET) Filter by rows inside a circle of distance r
-----------------------------------------------
+Filter by rows inside a circunference of radius r
+--------------------------------------------------
 
 .. code:: python
 
-    from django_earthdistance.expressions import DistanceExpression
-    from django_earthdistance.functions import CubeDistance, LlToEarth
-    from djorm_expressions.models import ExpressionManager
+    from django.db import models
+
+    from django_earthdistance.models import EarthDistanceQuerySet
 
     class MyModel(models.Model):
         latitute = models.FloatField()
         longitude = models.FloatField()
 
-        objects = ExpressionManager()
+        objects = EarthDistanceQuerySet.as_manager()
 
     # Define fields to query in DistanceExpression initialization
     # search with lat=0.2546 and lon=-38.25 and distance 1500 meters
+    # use param `annotate` to set a custom field for the distance, `_ed_distance` as default
 
-    MyModel.objects.where(
-        DistanceExpression(['latitude', 'longitude']).in_distance(
-            1500,
-            [0.2546, -38.25]))
+    MyModel.objects.in_distance(1500, fields=['latitude', 'longitude'], points=[0.2546, -38.25])
 
 
 Annotate each row returned by a query with distance between two points
@@ -56,10 +54,10 @@ Annotate each row returned by a query with distance between two points
 
 .. code:: python
 
-    from django_earthdistance.models import CubeDistance, LlToEarth
+    from django_earthdistance.models import EarthDistance, LlToEarth
 
     MyModel.objects.filter(....).annotate(
-        distance=CubeDistance(
+        distance=EarthDistance(
             LlToEarth([0.2546, -38.25]),
             LlToEarth(['latitude', 'longitude'])))
 
