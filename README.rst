@@ -1,15 +1,9 @@
 django-earthdistance
 =====================
 
-Using PostgreSQL's EarthDistance extension for django >= 1.8 (for older versions see *with_djorm_expressions* branch)*
+Using PostgreSQL's EarthDistance extension for django >= 1.8 (for older versions see *with_djorm_expressions* branch)
 
 Earthdistance allows to do fast geolocalized queries without using PostGIS
-
-.. image:: https://pypip.in/v/django-earthdistance/badge.png
-        :target: https://crate.io/packages/django-earthdistance
-
-.. image:: https://pypip.in/d/django-earthdistance/badge.png
-        :target: https://crate.io/packages/django-earthdistance
 
 **Tested with python 2.7 and 3.3**
 
@@ -76,6 +70,8 @@ perfectly spherical)
     -- Example MyModel table is app_mymodel and points columns are latitude and longitude
     CREATE INDEX mymodel_location ON app_mymodel USING gist (ll_to_earth(latitude, longitude));
 
+For django < 1.7
+~~~~~~~~~~~~~~~~~
 
 Also, using south is preferred, just add this migration to migrations/ folder and edit it to your needs, index will be created
 
