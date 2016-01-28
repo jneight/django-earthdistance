@@ -51,9 +51,10 @@ Annotate each row returned by a query with distance between two points
     from django_earthdistance.models import EarthDistance, LlToEarth
 
     MyModel.objects.filter(....).annotate(
-        distance=EarthDistance(
+        distance=EarthDistance([
             LlToEarth([0.2546, -38.25]),
-            LlToEarth(['latitude', 'longitude'])))
+            LlToEarth(['latitude', 'longitude'])
+        ]))
 
 
 
