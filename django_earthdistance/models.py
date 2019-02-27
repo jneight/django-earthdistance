@@ -28,7 +28,7 @@ class LlToEarth(models.Expression):
                 float(p)
             except:
                 _, source, _, join_list, last = query.setup_joins(
-                    six.text_type(p).split('__'), query.model._meta, query.get_initial_alias())
+                        six.text_type(p).split('__'), query.model._meta, query.get_initial_alias())[:5]
                 target, alias, _ = query.trim_joins(source, join_list, last)
                 final_points.append("%s.%s" % (alias, target[0].get_attname_column()[1]))
             else:
