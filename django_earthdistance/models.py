@@ -1,7 +1,10 @@
 # coding=utf-8
 
 from django.db import models
-from django.utils import six
+try:
+    from django.utils import six
+except:
+    import six
 
 
 class LlToEarth(models.Expression):
