@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import os
 
 import django
 from django.conf import settings
@@ -11,8 +12,10 @@ settings.configure(
         'default':{
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'test',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres', }
+            'USER': os.environ['POSTGRES_USER'],
+            'PASSWORD': os.environ['PGPASSWORD'],
+            'HOST': 'localhost',
+        }
     },
     INSTALLED_APPS=(
         'django_earthdistance',
