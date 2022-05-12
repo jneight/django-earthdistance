@@ -1,11 +1,9 @@
 django-earthdistance
 =====================
 
-Using PostgreSQL's EarthDistance extension for django >= 1.8 (for older versions see *with_djorm_expressions* branch)
+Using PostgreSQL's EarthDistance extension for django 1.11, 2.2 and 3.2 (for older versions see *with_djorm_expressions* branch)
 
 Earthdistance allows to do fast geolocalized queries without using PostGIS
-
-**Tested with python 2.7 and 3.3**
 
 
 Usage
