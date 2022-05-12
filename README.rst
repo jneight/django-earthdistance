@@ -1,11 +1,9 @@
 django-earthdistance
 =====================
 
-Using PostgreSQL's EarthDistance extension for django >= 1.8 (for older versions see *with_djorm_expressions* branch)
+Using PostgreSQL's EarthDistance extension for django 1.11, 2.2 and 3.2 (for older versions see *with_djorm_expressions* branch)
 
 Earthdistance allows to do fast geolocalized queries without using PostGIS
-
-**Tested with python 2.7 and 3.3**
 
 
 Usage
@@ -62,12 +60,12 @@ Optimizing perfomance with indexes
 -----------------------------------
 
 PostgreSQL allow to use GiST indexes with functions results, a good perfomance improvement is to store `ll_to_earth` results in
-an index, `ll_to_earth` is a function that calculates the position of a point on the surface of the earth (assuming earth is 
+an index, `ll_to_earth` is a function that calculates the position of a point on the surface of the earth (assuming earth is
 perfectly spherical)
 
 
 .. code:: sql
-   
+
     -- Example MyModel table is app_mymodel and points columns are latitude and longitude
     CREATE INDEX mymodel_location ON app_mymodel USING gist (ll_to_earth(latitude, longitude));
 
