@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-earthdistance',
-    version='1.1.2',
+    version='1.1.3',
     install_requires=[
         'django>=1.8'],
     url='https://github.com/jneight/django-earthdistance',
@@ -23,5 +23,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Application Frameworks',
     ],
     author='Javier Cordero Martinez',
-    author_email='jcorderomartinez@gmail.com'
+    author_email='github@j2i.me'
 )
