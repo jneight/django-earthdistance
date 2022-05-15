@@ -1,6 +1,16 @@
 # coding=utf-8
+import codecs
 
 from setuptools import setup, find_packages
+
+
+def long_description():
+    try:
+        with codecs.open('README.md', 'r', 'utf-8') as f:
+            return f.read()
+    except:
+        return 'Error loading README.md'
+
 
 setup(
     name='django-earthdistance',
@@ -9,7 +19,8 @@ setup(
         'django>=1.8'],
     url='https://github.com/jneight/django-earthdistance',
     description='Add support for PostgreSQL earthdistance extension to Django',
-    long_description=open("README.rst").read(),
+    long_description=long_description(),
+    long_description_content_type='text/markdown',
     packages=find_packages(),
     include_package_data=True,
     license='Apache 2.0',
