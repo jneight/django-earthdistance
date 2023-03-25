@@ -33,7 +33,7 @@ from django.db import models
 from django_earthdistance.models import EarthDistanceQuerySet
 
 class MyModel(models.Model):
-    latitute = models.FloatField()
+    latitude = models.FloatField()
     longitude = models.FloatField()
 
     objects = EarthDistanceQuerySet.as_manager()
