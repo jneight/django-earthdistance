@@ -4,6 +4,10 @@ from django.db.models import Func
 
 
 class LlToEarth(Func):
+    """
+    Returns the location of a point on the surface of the Earth given its
+    latitude and longitude in degrees.
+    """
     function = 'll_to_earth'
 
     def __init__(self, params, output_field=None):
@@ -14,6 +18,10 @@ class LlToEarth(Func):
 
 
 class EarthDistance(Func):
+    """
+    This PostgreSQL function returns the great circle distance between two points on the surface of the
+    earth.
+    """
     function = 'earth_distance'
 
     def __init__(self, expressions, output_field=None):
