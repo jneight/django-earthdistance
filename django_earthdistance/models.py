@@ -3,47 +3,17 @@
 from django.db import models
 
 
-class LlToEarth(models.Expression):
+class LlToEarth(models.Func):
     """
     Returns the location of a point on the surface of the Earth given its
     latitude and longitude in degrees.
     """
-    template = 'll_to_earth(%(params)s)'
-
-    def __init__(self, params, output_field=None):
-        if output_field is None:
-            output_field = models.fields.Field()
-        self.params = params
-        super(LlToEarth, self).__init__(output_field=output_field)
-
-    def resolve_expression(self, query=None, allow_joins=True, reuse=None, summarize=False, for_save=False):
-        """Setup any data here, this method will be called before final SQL is generated"""
-        c = self.copy()
-        c.is_summary = summarize
-        c.for_save = for_save
-        final_points = []
-        for i, p in enumerate(self.params):
-            try:
-                float(p)
-            except:
-                _, source, _, join_list, last = query.setup_joins(
-                        str(p).split('__'), query.model._meta, query.get_initial_alias())[:5]
-                target, alias, _ = query.trim_joins(source, join_list, last)
-                if hasattr(query.model, p):
-                    final_points.append("%s" % target[0].get_attname_column()[1])
-                else:
-                    final_points.append("%s.%s" % (alias, target[0].get_attname_column()[1]))
-            else:
-                final_points.append(str(p))
-            c.params = final_points
-        return c
-
-    def as_sql(self, compiler, connection):
-        """Returns ll_to_earth(field,field)"""
-        return self.template % {'params': ','.join(self.params)}, []
+    function = "ll_to_earth"
+    arg_joiner = ", "
+    arity = 1
 
 
-class EarthDistance(models.Expression):
+class EarthDistance(models.Func):
     """
     This PostgreSQL function returns the great circle distance between two points on the surface of the
     earth.
@@ -67,6 +37,7 @@ class EarthDistance(models.Expression):
 
     def as_sql(self, compiler, connection):
         sql_expressions, sql_params = [], []
+
         for expression in self.expressions:
             sql, params = compiler.compile(expression)
             sql_expressions.append(sql)
